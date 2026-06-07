@@ -1,24 +1,38 @@
-import { useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 import { supabase } from './supabaseClient'
+import Signup from './pages/Signup'
+import Login from './pages/Login'
+import Profile from './pages/Profile'
+import DemoStore from './pages/DemoStore'
 
 function App() {
+  const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
-    async function testConnection() {
-      const { data, error } = await supabase.from('avatars').select('*')
-      if (error) {
-        console.log('Connection error:', error.message)
-      } else {
-        console.log('Supabase connected! Data:', data)
-      }
-    }
-    testConnection()
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+      setLoading(false)
+    })
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session)
+    })
   }, [])
 
+  if (loading) return <p style={{ textAlign: 'center', marginTop: '100px' }}>Loading...</p>
+
   return (
-    <div>
-      <h1>Avatar App</h1>
-      <p>Check the browser console for connection status</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/signup" element={!session ? <Signup /> : <Navigate to="/profile" />} />
+        <Route path="/login" element={!session ? <Login /> : <Navigate to="/profile" />} />
+        <Route path="/profile" element={session ? <Profile session={session} /> : <Navigate to="/login" />} />
+        <Route path="/demo" element={<DemoStore />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
