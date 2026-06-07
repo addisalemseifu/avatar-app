@@ -99,11 +99,11 @@ function Landing() {
           Add one line of code to your store. Watch your conversion rate go up and your return rate go down.
         </p>
         <button
-          onClick={() => navigate('/signup')}
-          style={{ padding: '14px 32px', background: '#fff', color: '#000', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '16px', fontWeight: '500' }}
-        >
-          Get early access
-        </button>
+  onClick={() => navigate('/retailer/signup')}
+  style={{ padding: '14px 32px', background: '#fff', color: '#000', border: 'none', borderRadius: '10px', cursor: 'pointer', fontSize: '16px', fontWeight: '500' }}
+>
+  Add Avatar to my store →
+</button>
       </div>
 
       {/* Footer */}
