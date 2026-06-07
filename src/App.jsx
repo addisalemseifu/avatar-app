@@ -6,6 +6,8 @@ import Login from './pages/Login'
 import Profile from './pages/Profile'
 import DemoStore from './pages/DemoStore'
 import Landing from './pages/Landing'
+import RetailerSignup from './pages/RetailerSignup'
+import RetailerDashboard from './pages/RetailerDashboard'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -32,7 +34,8 @@ function App() {
         <Route path="/login" element={!session ? <Login /> : <Navigate to="/profile" />} />
         <Route path="/profile" element={session ? <Profile session={session} /> : <Navigate to="/login" />} />
         <Route path="/demo" element={<DemoStore />} />
-        
+        <Route path="/retailer/signup" element={<RetailerSignup />} />
+        <Route path="/retailer/dashboard" element={<RetailerDashboard />} />
       </Routes>
     </BrowserRouter>
   )
