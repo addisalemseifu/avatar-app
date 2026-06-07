@@ -35,7 +35,7 @@ function RetailerDashboard() {
   }, [])
 
   function handleCopy() {
-    const code = `<script src="https://avatar-app.vercel.app/widget.js" data-store-key="${retailer.api_key}"></script>`
+    const code = `<script src="https://avatar-app-git-main-addis2.vercel.app/widget.js" data-store-key="${retailer.api_key}"></script>`
     navigator.clipboard.writeText(code)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
@@ -48,7 +48,7 @@ function RetailerDashboard() {
 
   if (loading) return <p style={{ textAlign: 'center', marginTop: '100px', fontFamily: 'sans-serif' }}>Loading your dashboard...</p>
 
-  const installCode = `<script src="https://avatar-app.vercel.app/widget.js" data-store-key="${retailer.api_key}"></script>`
+  const installCode = `<script src="https://avatar-app-git-main-addis2.vercel.app/widget.js" data-store-key="${retailer.api_key}"></script>`
 
   return (
     <div style={{ maxWidth: '700px', margin: '0 auto', padding: '2rem', fontFamily: 'sans-serif' }}>

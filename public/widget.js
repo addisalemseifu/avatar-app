@@ -11,7 +11,7 @@ const storeKey = script ? script.getAttribute('data-store-key') : null
 
   const SUPABASE_URL = 'https://qgdxeukddlhxbnvdwnrm.supabase.co'
 const SUPABASE_ANON_KEY = 'sb_publishable_MGCHdPkTePLhtWiN4yUmOQ_DIeMnNBK'
-  const AVATAR_APP_URL = 'https://avatar-app.vercel.app'
+ const AVATAR_APP_URL = 'https://avatar-app-git-main-addis2.vercel.app'
 
   // ── Inject the button styles ──────────────────────────────
   const style = document.createElement('style')
