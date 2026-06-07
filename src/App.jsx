@@ -5,6 +5,7 @@ import Signup from './pages/Signup'
 import Login from './pages/Login'
 import Profile from './pages/Profile'
 import DemoStore from './pages/DemoStore'
+import Landing from './pages/Landing'
 
 function App() {
   const [session, setSession] = useState(null)
@@ -26,11 +27,12 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Landing />} />
         <Route path="/signup" element={!session ? <Signup /> : <Navigate to="/profile" />} />
         <Route path="/login" element={!session ? <Login /> : <Navigate to="/profile" />} />
         <Route path="/profile" element={session ? <Profile session={session} /> : <Navigate to="/login" />} />
         <Route path="/demo" element={<DemoStore />} />
+        
       </Routes>
     </BrowserRouter>
   )
