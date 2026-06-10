@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "Avatar — Shop your size",
+  "version": "1.0",
+  "description": "Instantly filter any online store to show only products in your size and style.",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Avatar"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
