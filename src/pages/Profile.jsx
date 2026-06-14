@@ -8,6 +8,8 @@ function Profile({ session }) {
   const [message, setMessage] = useState(null)
   const navigate = useNavigate()
 
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [fullName, setFullName] = useState('')
   const [shoeSize, setShoeSize] = useState('')
   const [topSize, setTopSize] = useState('')
@@ -25,16 +27,17 @@ function Profile({ session }) {
         .maybeSingle()
 
       if (data) {
-  setFullName(data.full_name || '')
-  setShoeSize(data.shoe_size || '')
-  setTopSize(data.top_size || '')
-  setBottomSize(data.bottom_size || '')
-  setStyleTags(data.style_tags || '')
-  setBrandPrefs(data.brand_prefs || '')
-  setShippingAddress(data.shipping_address || '')
-}
-// 406 just means no row exists yet — that's fine, ignore it
-setLoading(false)
+        setFirstName(data.first_name || '')
+        setLastName(data.last_name || '')
+        setFullName(data.full_name || '')
+        setShoeSize(data.shoe_size || '')
+        setTopSize(data.top_size || '')
+        setBottomSize(data.bottom_size || '')
+        setStyleTags(data.style_tags || '')
+        setBrandPrefs(data.brand_prefs || '')
+        setShippingAddress(data.shipping_address || '')
+      }
+      setLoading(false)
     }
     loadProfile()
   }, [session])
@@ -44,16 +47,18 @@ setLoading(false)
     setSaving(true)
     setMessage(null)
 
-   const avatarData = {
-  user_id: session.user.id,
-  full_name: fullName,
-  shoe_size: shoeSize,
-  top_size: topSize,
-  bottom_size: bottomSize,
-  style_tags: styleTags,
-  brand_prefs: brandPrefs,
-  shipping_address: shippingAddress,
-}
+    const avatarData = {
+      user_id: session.user.id,
+      first_name: firstName,
+      last_name: lastName,
+      full_name: fullName,
+      shoe_size: shoeSize,
+      top_size: topSize,
+      bottom_size: bottomSize,
+      style_tags: styleTags,
+      brand_prefs: brandPrefs,
+      shipping_address: shippingAddress,
+    }
 
     const { error } = await supabase
       .from('avatars')
@@ -93,16 +98,39 @@ setLoading(false)
       <form onSubmit={handleSave}>
         <h3 style={{ marginBottom: '1rem' }}>Personal</h3>
 
-<div style={{ marginBottom: '1rem' }}>
-  <label>Full Name</label><br />
-  <input
-    type="text"
-    value={fullName}
-    onChange={(e) => setFullName(e.target.value)}
-    placeholder="John Smith"
-    style={{ width: '100%', padding: '8px', marginTop: '4px', boxSizing: 'border-box' }}
-  />
-</div>
+        <div style={{ marginBottom: '1rem' }}>
+          <label>First Name</label><br />
+          <input
+            type="text"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            placeholder="John"
+            style={{ width: '100%', padding: '8px', marginTop: '4px', boxSizing: 'border-box' }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <label>Last Name</label><br />
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            placeholder="Smith"
+            style={{ width: '100%', padding: '8px', marginTop: '4px', boxSizing: 'border-box' }}
+          />
+        </div>
+
+        <div style={{ marginBottom: '1rem' }}>
+          <label>Full Name</label><br />
+          <input
+            type="text"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            placeholder="John Smith"
+            style={{ width: '100%', padding: '8px', marginTop: '4px', boxSizing: 'border-box' }}
+          />
+        </div>
+
         <h3 style={{ marginBottom: '1rem' }}>Sizes</h3>
 
         <div style={{ marginBottom: '1rem' }}>

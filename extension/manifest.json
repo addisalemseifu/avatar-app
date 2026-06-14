@@ -10,9 +10,10 @@
     "tabs"
   ],
   "host_permissions": [
-    "https://*/*",
-    "http://*/*"
-  ],
+  "https://*/*",
+  "http://*/*",
+  "https://api.anthropic.com/*"
+],
   "background": {
     "service_worker": "background.js"
   },
@@ -21,13 +22,17 @@
     "default_title": "Avatar"
   },
   "content_scripts": [
-    {
-      "matches": [
-        "https://*/*",
-        "http://*/*"
-      ],
-      "js": ["content.js"],
-      "run_at": "document_idle"
-    }
-  ]
+  {
+    "matches": [
+      "http://localhost/*",
+      "http://localhost:*/*",
+      "https://localhost/*",
+      "https://localhost:*/*",
+      "https://*/*",
+      "http://*/*"
+    ],
+    "js": ["content.js"],
+    "run_at": "document_idle"
+  }
+]
 }
