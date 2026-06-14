@@ -158,6 +158,31 @@ document.getElementById('reset-btn').addEventListener('click', async () => {
     document.getElementById('reset-btn').style.display = 'none'
   })
 })
+// ── Autofill button ───────────────────────────────────────
+document.getElementById('autofill-btn').addEventListener('click', async () => {
+  const session = await loadSession()
+  if (!session) return
+
+  const avatar = await fetchAvatar(session.user.id, session.access_token)
+  if (!avatar) {
+    setFilterStatus('No avatar found. Set up your profile first.')
+    return
+  }
+
+  if (!avatar.full_name) {
+    setFilterStatus('Please add your name to your Avatar profile first.')
+    return
+  }
+
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true })
+  chrome.tabs.sendMessage(tab.id, { action: 'autofill', avatar }, response => {
+    if (response && response.filled > 0) {
+      setFilterStatus(`✅ Filled ${response.filled} name field(s)`, true)
+    } else {
+      setFilterStatus('No name fields found on this page.')
+    }
+  })
+})
 
 // ── Logout button ─────────────────────────────────────────
 

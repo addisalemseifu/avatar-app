@@ -8,6 +8,7 @@ function Profile({ session }) {
   const [message, setMessage] = useState(null)
   const navigate = useNavigate()
 
+  const [fullName, setFullName] = useState('')
   const [shoeSize, setShoeSize] = useState('')
   const [topSize, setTopSize] = useState('')
   const [bottomSize, setBottomSize] = useState('')
@@ -24,6 +25,7 @@ function Profile({ session }) {
         .maybeSingle()
 
       if (data) {
+  setFullName(data.full_name || '')
   setShoeSize(data.shoe_size || '')
   setTopSize(data.top_size || '')
   setBottomSize(data.bottom_size || '')
@@ -42,15 +44,16 @@ setLoading(false)
     setSaving(true)
     setMessage(null)
 
-    const avatarData = {
-      user_id: session.user.id,
-      shoe_size: shoeSize,
-      top_size: topSize,
-      bottom_size: bottomSize,
-      style_tags: styleTags,
-      brand_prefs: brandPrefs,
-      shipping_address: shippingAddress,
-    }
+   const avatarData = {
+  user_id: session.user.id,
+  full_name: fullName,
+  shoe_size: shoeSize,
+  top_size: topSize,
+  bottom_size: bottomSize,
+  style_tags: styleTags,
+  brand_prefs: brandPrefs,
+  shipping_address: shippingAddress,
+}
 
     const { error } = await supabase
       .from('avatars')
@@ -88,7 +91,18 @@ setLoading(false)
       </div>
 
       <form onSubmit={handleSave}>
+        <h3 style={{ marginBottom: '1rem' }}>Personal</h3>
 
+<div style={{ marginBottom: '1rem' }}>
+  <label>Full Name</label><br />
+  <input
+    type="text"
+    value={fullName}
+    onChange={(e) => setFullName(e.target.value)}
+    placeholder="John Smith"
+    style={{ width: '100%', padding: '8px', marginTop: '4px', boxSizing: 'border-box' }}
+  />
+</div>
         <h3 style={{ marginBottom: '1rem' }}>Sizes</h3>
 
         <div style={{ marginBottom: '1rem' }}>
